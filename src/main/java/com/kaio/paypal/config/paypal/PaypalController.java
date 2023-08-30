@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -37,8 +38,8 @@ public class PaypalController {
                     sucessUrl
             );
 
-            for (Links links: payment.getLinks()){
-                if (links.getRel().equals("approval_url")){
+            for (Links links : payment.getLinks()) {
+                if (links.getRel().equals("approval_url")) {
                     return new RedirectView(links.getHref());
                 }
             }
@@ -46,5 +47,21 @@ public class PaypalController {
             log.error("Error: ", e);
         }
         return new RedirectView("/payment/error");
+    }
+
+    @GetMapping("/payment/sucess")
+    public String paymentSucess(
+            @RequestParam("paymentId") String paymentId,
+            @RequestParam("payerId") String payerId
+    ) {
+        try {
+            Payment payment = paypalService.executePayment(paymentId, payerId);
+            if(payment.getState().equals("approved")){
+                return "paymentSuccess";
+            }
+        } catch (PayPalRESTException e) {
+            log.error("Error: ", e);
+        }
+        return "paymentSuccess";
     }
 }
