@@ -64,4 +64,14 @@ public class PaypalController {
         }
         return "paymentSuccess";
     }
+
+    @GetMapping("/payment/cancel")
+    public String paymentCancel(){
+        return "paymentCancel";
+    }
+
+    @GetMapping("/payment/error")
+    public String paymentError(){
+        return "paymentError";
+    }
 }
