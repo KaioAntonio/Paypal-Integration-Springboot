@@ -1,4 +1,4 @@
 paypal:
   client-id: Af9cJjOR3dzGYtgxGG07SP7-Rdgan4TCbxKc41R4_gis6wOU_t7lyzMtlwpnwyOS1FC5ucIOtu_5RTEE
-  client-secret: Af9cJjOR3dzGYtgxGG07SP7-Rdgan4TCbxKc41R4_gis6wOU_t7lyzMtlwpnwyOS1FC5ucIOtu_5RTEE
+  client-secret: ECQJ-umDCig8F4XoF4Y8V5rxwa1e-epZABqx9fzOuzghv45jy_L2nYL6M-vmeNMuntlgfc_NWYOHwmOR
   mode: sandbox #sandbox for test and live for production

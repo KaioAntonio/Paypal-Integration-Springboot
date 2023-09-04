@@ -32,13 +32,14 @@ public class PaypalService {
     ) throws PayPalRESTException {
         Amount amount = new Amount();
         amount.setCurrency(currency);
-        amount.setTotal(String.format(Locale.forLanguageTag(currency), "%2f", total));
+        amount.setTotal(String.format(Locale.forLanguageTag(currency), "%.2f", total));
+
         Transaction transaction = new Transaction();
         transaction.setDescription(description);
         transaction.setAmount(amount);
 
-        List<Transaction> transactionList = new ArrayList<>();
-        transactionList.add(transaction);
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
 
         Payer payer = new Payer();
         payer.setPaymentMethod(method);
@@ -46,11 +47,12 @@ public class PaypalService {
         Payment payment = new Payment();
         payment.setIntent(intent);
         payment.setPayer(payer);
-        payment.setTransactions(transactionList);
+        payment.setTransactions(transactions);
 
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl(cancelUrl);
         redirectUrls.setReturnUrl(successUrl);
+
         payment.setRedirectUrls(redirectUrls);
 
         return payment.create(apiContext);
